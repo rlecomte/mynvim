@@ -1,5 +1,6 @@
 " prerequirement
 " stack install fast-tags
+" apt install fzf
 
 execute pathogen#infect()
 
