@@ -7,18 +7,35 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-let g:sierra_Twilight = 1
-colorscheme sierra
+" theme
+set background=dark
+colorscheme solarized
 
 " basic conf
 set number "show line number
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
+" https://superuser.com/questions/450403/how-can-i-hide-the-insert-status-in-vim
+set noshowmode
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+" lightline
+
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
 " buftabline
 set hidden
