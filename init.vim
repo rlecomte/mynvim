@@ -11,12 +11,18 @@ filetype plugin indent on
 set background=dark
 colorscheme solarized
 
-" basic conf
-set number "show line number
+" show line number
+set number
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
+" highlight word
+autocmd CursorMoved * exe printf('match FoldColumn /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
 " https://superuser.com/questions/450403/how-can-i-hide-the-insert-status-in-vim
 set noshowmode
+
+"copy to clipboard (+y)
+set clipboard+=unnamedplus
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
@@ -24,23 +30,6 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" lightline
-
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
-" buftabline
-set hidden
-nnoremap <C-m> :bnext<CR>
-nnoremap <C-l> :bprev<CR>
 
 " Tab specific option
 set tabstop=8                   "A tab is 8 spaces
@@ -54,18 +43,46 @@ autocmd FileType json setlocal ts=2 sw=2
 autocmd FileType yaml setlocal ts=2 sw=2
 autocmd FileType sql setlocal ts=2 sw=2
 
-"fzf
+" ~~~~~~~~~~~~~~ BufOnly ~~~~~~~~~~~~~~
+
+" delete all buffer but this one
+nmap <C-n> :Bonly<CR>
+
+" ~~~~~~~~~~~~~~ lightline ~~~~~~~~~~~~~~
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+" ~~~~~~~~~~~~~~ buftabline ~~~~~~~~~~~~~~
+set hidden
+nnoremap <C-m> :bnext<CR>
+nnoremap <C-l> :bprev<CR>
+
+" ~~~~~~~~~~~~~~ fzf ~~~~~~~~~~~~~~
 set rtp+=~/.fzf/
 
 nmap <C-s> :Tags<CR>
 nmap <C-p> :GFiles<CR>
 
-"nerdtree
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'fast-tags -R .'
+
+" Search current word in tags
+nmap <C-c> :call fzf#vim#tags(expand('<cword>'))<CR>
+
+"~~~~~~~~~~~~~~ nerdtree ~~~~~~~~~~~~~~
 nmap <F7> :NERDTree<CR>
 nmap <C-f> :NERDTreeFind<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " Close vim if the only window is nerdtree
 
-" haskell-vim
+" ~~~~~~~~~~~~~~ haskell-vim ~~~~~~~~~~~~~~
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
 let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
 let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
@@ -74,7 +91,7 @@ let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 
-" fast-tags
+"~~~~~~~~~~~~~~ fast-tags ~~~~~~~~~~~~~~
 augroup tags
 au BufWritePost *.hs            silent !init-tags %
 au BufWritePost *.hsc           silent !init-tags %
