@@ -7,9 +7,13 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
+" remap escape edit mode
+inoremap <esc> <nop>
+inoremap jk <esc>
+
 " theme
-set background=dark
-colorscheme solarized
+"set background=dark
+colorscheme deus 
 
 " show line number
 set number
@@ -96,3 +100,14 @@ augroup tags
 au BufWritePost *.hs            silent !init-tags %
 au BufWritePost *.hsc           silent !init-tags %
 augroup END
+
+" ~~~~~~~~~~~~~ tips ~~~~~~~~~~~~~~~~~~~
+
+augroup haskelltips
+    au BufRead,BufNewFile *.hs setfiletype haskell
+    au FileType haskell :iabbrev <buffer> STV {-# LANGUAGE ScopedTypeVariables #-}
+    au FileType haskell :iabbrev <buffer> RNT {-# LANGUAGE RankNTypes #-}
+    " britanny mapping
+    xnoremap <C-f> <esc>:'<,'> !brittany<CR>
+augroup END
+
