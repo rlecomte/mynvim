@@ -1,0 +1,24 @@
+[submodule "delimitMate"]
+	path = bundle/delimitMate
+	url = https://github.com/Raimondi/delimitMate.git
+[submodule "gruvbox"]
+	path = bundle/gruvbox
+	url = https://github.com/dkasak/gruvbox.git
+[submodule "fzf"]
+	path = bundle/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
+[submodule "haskell-vim"]
+	path = bundle/haskell-vim
+	url = https://github.com/neovimhaskell/haskell-vim.git
+[submodule "lightline"]
+	path = bundle/lightline.vim
+	url = https://github.com/itchyny/lightline.vim
+[submodule "vim-bufonly"]
+	path = bundle/vim-bufonly
+	url = https://github.com/schickling/vim-bufonly
+[submodule "vim-buftabline"]
+	path = bundle/vim-buftabline
+	url = https://github.com/ap/vim-buftabline.git
+[submodule "vim-fugitive"]
+	path = bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git

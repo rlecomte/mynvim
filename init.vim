@@ -81,7 +81,8 @@ nmap <C-c> :call fzf#vim#tags(expand('<cword>'))<CR>
 
 " theme
 set background=dark
-colorscheme gruvbox 
+set termguicolors
+colorscheme gruvbox
 
 " ~~~~~~~~~~~~~~ netrw ~~~~~~~~~~~~~~
 let g:netrw_liststyle = 3 
@@ -90,5 +91,5 @@ let netrw_browse_split = 4
 let g:netrw_winsize = 20
 augroup ProjectDrawer
   autocmd!
-  autocmd VimEnter * :Vexplore
+  map <C-f> :Vex<CR>
 augroup END
