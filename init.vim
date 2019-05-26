@@ -4,8 +4,7 @@
 
 execute pathogen#infect()
 
-" syntax on
-" filetype plugin indent on
+set updatetime=400
 
 " remap escape edit mode
 inoremap <esc> <nop>
@@ -14,6 +13,8 @@ inoremap jk <esc>
 " show line number
 set number
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
+set fileencoding=utf-8
 
 " highlight word
 " autocmd CursorMoved * exe printf('match Highlight /\V\<%s\>/', escape(expand('<cword>'), '/\'))
@@ -33,16 +34,19 @@ endif
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
 " Tab specific option
-set tabstop=8                   "A tab is 8 spaces
+set tabstop=4                   "A tab is 4 spaces
 set expandtab                   "Always uses spaces instead of tabs
-set softtabstop=4               "Insert 4 spaces when tab is pressed
+set softtabstop=2               "Insert 4 spaces when tab is pressed
 set shiftwidth=4                "An indent is 4 spaces
-set shiftround                  "Round indent to nearest shiftwidth multiple
-
+"set shiftround                  "Round indent to nearest shiftwidth multiple
+"
 autocmd FileType javascript setlocal ts=2 sw=2
 autocmd FileType json setlocal ts=2 sw=2
 autocmd FileType yaml setlocal ts=2 sw=2
 autocmd FileType sql setlocal ts=2 sw=2
+
+"~~~~~~~~~~~~~~~ sort ~~~~~~~~~~~~~~~~~
+map <C-i> :sort<CR>
 
 " ~~~~~~~~~~~~~~ BufOnly ~~~~~~~~~~~~~~
 
@@ -75,12 +79,16 @@ nmap <C-p> :GFiles<CR>
 " Search current word in tags
 nmap <C-c> :call fzf#vim#tags(expand('<cword>'))<CR>
 
-"~~~~~~~~~~~~~~ nerdtree ~~~~~~~~~~~~~~
-nmap <F7> :NERDTree<CR>
-nmap <C-f> :NERDTreeFind<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " Close vim if the only window is nerdtree
-
-
 " theme
 set background=dark
 colorscheme gruvbox 
+
+" ~~~~~~~~~~~~~~ netrw ~~~~~~~~~~~~~~
+let g:netrw_liststyle = 3 
+let g:netrw_banner = 0
+let netrw_browse_split = 4
+let g:netrw_winsize = 20
+augroup ProjectDrawer
+  autocmd!
+  autocmd VimEnter * :Vexplore
+augroup END
