@@ -36,7 +36,7 @@ endif
 
 " theme
 set background=dark
-colorscheme gruvbox
+colorscheme gruvbox8
 
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
@@ -47,11 +47,12 @@ autocmd FileType yaml setlocal ts=2 sw=2
 autocmd FileType sql setlocal ts=2 sw=2
 
 " netrw
+let g:netrw_localrmdir='rm -r'
 augroup ProjectDrawer
   autocmd!
   nmap <C-f> :Explore<CR>
 augroup END
 
-source plugin/fzf.vim
-source plugin/buftabline.vim
-source plugin/lightline.vim
+source ~/.config/nvim/plugin/fzf.vim
+source ~/.config/nvim/plugin/buftabline.vim
+source ~/.config/nvim/plugin/lightline.vim
