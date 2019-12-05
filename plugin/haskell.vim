@@ -26,4 +26,3 @@ augroup haskelltips
     set list listchars=trail:.,extends:>
     nmap <C-k> :call TrimWhiteSpace()<CR>
 augroup END
-
